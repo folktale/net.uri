@@ -62,8 +62,8 @@ clean-docs:
 clean:
 	rm -rf dist $(LIB_DIR) $(TEST_BLD)
 
-test: $(TEST_TGT)
-	node test/tap
+test: all $(TEST_TGT)
+	node test/tap.js
 
 package: documentation bundle minify
 	mkdir -p dist/$(PACKAGE)-$(VERSION)

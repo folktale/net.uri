@@ -19,9 +19,48 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var spec = require('hifive')()
-var uri = require('../../lib/')
+var spec    = require('hifive')()
+var claire  = require('claire')
+var alright = require('../alright')
+var uri     = require('../../lib/')
+var ops     = require('core.operators')
+
+// Aliases
+var forAll = claire.forAll
+var t      = claire.data
+var URI    = uri.URI
+var fmap   = claire.transform
+var label  = claire.label
+
+// Data types
+var TPathSegment = label('PathSegment', fmap(ops.create(uri.PathSegment), t.Str))
 
 module.exports = spec('Net.URI', function(it, spec) {
+
+  spec('PathSegment', function(it) {
+    
+    it( '#toString() should encode the segment as an URI component.'
+      , forAll(t.Str).satisfy(function(a) {
+          var segment = new uri.PathSegment(a)
+          return segment.toString() => encodeURIComponent(a)
+        }).asTest())
+
+    it( '#isEqual(a) should succeed if both path segments are equivalent.'
+      , forAll(TPathSegment, TPathSegment).satisfy(function(a, b) {
+          var c = { _segment: a._segment }
+          return (
+            a.isEqual(a) => true,
+            b.isEqual(b) => true,
+            a.isEqual(c) => false
+          )
+        }).asTest())
+
+  })
+
+  spec('Path', function(it) {
+    spec('.fromString(s)', function(it) {
+      
+    })
+  })
 
 })

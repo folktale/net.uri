@@ -312,7 +312,7 @@ QueryString.prototype.merge = function(query) {
  */
 exports.URI = URI
 function URI(spec) {
-  return this.update(spec)
+  return this.update(spec || {})
 }
 
 /**
@@ -368,7 +368,7 @@ URI.prototype.update = function(spec) {
  * @summary { String → String } → URI
  */
 URI.prototype.set = function(data) {
-  return this.update({ _query: this._query.set(data) })
+  return this.update({ query: this._query.set(data) })
 }
 
 /**
@@ -377,7 +377,7 @@ URI.prototype.set = function(data) {
  * @summary String → URI
  */
 URI.prototype.remove = function(name) {
-  return this.update({ _query: this._query.remove(name) })
+  return this.update({ query: this._query.remove(name) })
 }
 
 /**
@@ -386,7 +386,7 @@ URI.prototype.remove = function(name) {
  * @summary String → URI
  */
 URI.prototype.to = function(segment) {
-  return this.update({ _path: this._path.add(new PathSegment(segment)) })
+  return this.update({ pathname: this._path.add(new PathSegment(segment)) })
 }
 
 /**
@@ -395,7 +395,7 @@ URI.prototype.to = function(segment) {
  * @summary Void → URI
  */
 URI.prototype.up = function(segment) {
-  return this.update({ _path: this._path.parent() })
+  return this.update({ pathname: this._path.parent() })
 }
 
 /**
@@ -404,5 +404,5 @@ URI.prototype.up = function(segment) {
  * @summary Void → URI
  */
 URI.prototype.join = function(p) {
-  return this.update({ _path: this._path.join(p) })
+  return this.update({ pathname: this._path.join(p) })
 }

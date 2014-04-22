@@ -1,6 +1,6 @@
 {
   "name": "net.uri",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Simple library for safely building URIs.",
   "main": "lib/index.js",
   "scripts": {

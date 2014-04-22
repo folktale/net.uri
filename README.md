@@ -12,8 +12,22 @@ Simple library for safely building URIs.
 
 ## Example
 
+With Sweet.js macros:
+
 ```js
-( ... )
+var URI = require('net.uri').URI
+
+var url1 = $uri(URI => "http://www.example.com" ~ "foo/bar" ~ "baz" ? { qux: 'x' }
+url1.toString() // => "http://www.example.com/foo%2fbar/baz?qux=x"
+```
+
+With vanilla JS:
+
+```js
+var URI = require('net.uri').URI
+
+var url1 = URI.fromString("http://www.example.com").to("foo/bar").to("baz").set({ qux: 'x' })
+url1.toStrign() // => "http://www.example.com/foo%2fbar/baz?qux=x"
 ```
 
 

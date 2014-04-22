@@ -102,7 +102,7 @@ function Path(segments, isRoot) {
  * @summary String → Path
  */
 Path.fromString = function(p) {
-  p = path.normalize(url.parse(p).pathname)
+  p = path.normalize(url.parse(p).pathname || '/')
 
   return Path.fromArray( p.split('/').map(decodeURIComponent)
                        , /^\//.test(p))

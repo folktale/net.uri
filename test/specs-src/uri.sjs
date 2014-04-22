@@ -26,14 +26,21 @@ var uri     = require('../../lib/')
 var ops     = require('core.operators')
 
 // Aliases
-var forAll = claire.forAll
-var t      = claire.data
-var URI    = uri.URI
-var fmap   = claire.transform
-var label  = claire.label
+var forAll   = claire.forAll
+var t        = claire.data
+var URI      = uri.URI
+var fmap     = claire.transform
+var label    = claire.label
+var repeat   = claire.repeat
+var sequence = claire.sequence
 
 // Data types
 var TPathSegment = label('PathSegment', fmap(ops.create(uri.PathSegment), t.Str))
+var TPath        = label('Path', fmap( makePath
+                                     , sequence(repeat(TPathSegment), t.Bool)))
+
+// Helpers
+function makePath(xs) { return new uri.PathSegment(xs[0], xs[1]) }
 
 module.exports = spec('Net.URI', function(it, spec) {
 
@@ -58,9 +65,11 @@ module.exports = spec('Net.URI', function(it, spec) {
   })
 
   spec('Path', function(it) {
-    spec('.fromString(s)', function(it) {
+    it( 'fromString(s).toString() <=> s'
+      , forAll(TPath).satisfy(function(p) {
+          return uri.Path.fromString(p.toString()).toString() => p.toString()
+        }).asTest())
       
-    })
   })
 
 })

@@ -26,7 +26,9 @@ With vanilla JS:
 ```js
 var URI = require('net.uri').URI
 
-var url1 = URI.fromString("http://www.example.com").to("foo/bar").to("baz").set({ qux: 'x' })
+var url1 = URI.fromString("http://www.example.com").to("foo/bar")
+                                                   .to("baz")
+                                                   .set({ qux: 'x' })
 url1.toStrign() // => "http://www.example.com/foo%2fbar/baz?qux=x"
 ```
 

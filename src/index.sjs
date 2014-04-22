@@ -124,7 +124,7 @@ Path.fromArray = function(p, isRoot) {
  */
 Path.prototype.toString = function() {
   var beginning = this.isRoot?  '/' : ''
-  return path.normalize(beginning + this._segments.join('/'))
+  return path.join(beginning, this._segments.join('/'))
 }
 
 /**
@@ -156,7 +156,8 @@ Path.prototype.add = function(segment) {
 Path.prototype.join = function(p) {
   assertType(Path, p)
 
-  return Path.fromString(path.join(this.toString(), p.toString()))
+  return p.isRoot?        p
+  :      /* otherwise */  Path.fromString(path.join(this.toString(), p.toString()))
 }
 
 /**

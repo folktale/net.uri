@@ -23,51 +23,8 @@
 // libraries, and grab a hold of our data structure and the laws we want
 // to verify.
 var spec = require('hifive')()
-var laws = require('laws')
 var uri = require('../../lib/')
 
-// And to use the laws, we need to provide a constructor function, that
-// given a single argument will return a new data structure containing
-// that argument. We also make sure that the constructor for our
-// semigroup implementation lifts the value into a non empty list, so we
-// can concatenate the values.
-function make(a)   { return new uri(a)   }
-function makeNel(a){ return new uri([a]) }
+module.exports = spec('Net.URI', function(it, spec) {
 
-// Then we provide the specification for the test runner. As we're using
-// Hifive here, it expects that each definition for the specification to
-// have a function that will throw exceptions on failures. We use the
-// `asTest` property from Claire that returns exactly what Hifive (and
-// Mocha & other testing libraries) expect.
-module.exports = spec('Algebraic laws', function(it, spec) {
-
-  spec(': Semigroup', function(it) {
-    it('1. Associativity', laws.semigroup.associativity(makeNel).asTest())
-  })
-
-  spec(': Monoid', function(it) {
-    it('1. Right identity', laws.monoid.rightIdentity(make).asTest())
-    it('2. Left identity',  laws.monoid.leftIdentity(make).asTest())
-  })
-
-  spec(': Functor', function(it) {
-    it('1. Identity',     laws.functor.identity(make).asTest())
-    it('2. Composition',  laws.functor.composition(make).asTest())
-  })
-
-  spec(': Applicative', function(it) {
-    it('1. Identity',     laws.applicative.identity(make).asTest())
-    it('2. Composition',  laws.applicative.composition(make).asTest())
-    it('3. Homomorphism', laws.applicative.homomorphism(make).asTest())
-    it('4. Interchange',  laws.applicative.interchange(make).asTest())
- })
-
-  spec(': Chain', function(it) {
-    it('1. Associativity', laws.chain.associativity(make).asTest())
-  })
-
-  spec(': Monad', function(it) {
-    it('1. Left identity',  laws.monad.leftIdentity(make).asTest())
-    it('2. Right identity', laws.monad.rightIdentity(make).asTest())
-  })
 })

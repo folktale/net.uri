@@ -19,7 +19,11 @@
   "bugs": {
     "url": "https://github.com/folktale/net.uri/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "flaw": "^0.1.0",
+    "core.operators": "^1.0.0",
+    "versione": "^0.1.0"
+  },
   "devDependencies": {
     "browserify": "^3.33.0",
     "ink-docstrap": "git://github.com/robotlolita/docstrap",

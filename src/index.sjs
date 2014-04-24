@@ -60,7 +60,7 @@ function assertType(type, value) {
  */
 exports.PathSegment = PathSegment
 function PathSegment(segment) {
-  this._segment = segment
+  this._segment = segment === ''?  '.' : segment
 }
 
 /**
@@ -124,7 +124,7 @@ Path.fromArray = function(p, isRoot) {
  */
 Path.prototype.toString = function() {
   var beginning = this.isRoot?  '/' : ''
-  return path.join(beginning, this._segments.join('/'))
+  return path.join(beginning, path.normalize(this._segments.join('/')))
 }
 
 /**

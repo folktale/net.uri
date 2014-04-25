@@ -70,6 +70,8 @@ var TRootPath    = label( 'RootPath'
 var TRelPath     = label( 'RelativePath'
                         , fmap(makePath(false), repeat(TPathSegment)))
 
+var TPositiveInt = fmap(Math.floor, t.Positive)
+
 
 module.exports = spec('Net.URI', function(it, spec) {
 
@@ -140,6 +142,27 @@ module.exports = spec('Net.URI', function(it, spec) {
             p.isEqual(a) => false
           )
         }).asTest())
+  })
+
+  spec('UserInfo', function(it) {
+    it( 'fromString("a:b") should construct a UserInfo("a", "b")'
+      , forAll(t.Str, t.Str).satisfy(function(a, b) {
+          a = a.replace(/:/g, '')
+          b = b.replace(/:/g, '')
+          var c = uri.UserInfo.fromString(a + ':' + b)
+          return (
+            c.username => a,
+            c.password => b
+          )
+        }).asTest())
+
+    it( 'fromString(a) without a single : separator should construct an EmptyUserInfo'
+      , forAll(t.Str, TPositiveInt).given(function(_, b){ return b !== 2 && b > 0 }).satisfy(function(a, b) {
+          a = a.replace(/:/g, '')
+          var as = Array.apply(null, Array(b)).map(function(){ return a }).join(':')
+          return uri.UserInfo.fromString(as).toString() => ''
+        }).asTest())
+
   })
 
 })

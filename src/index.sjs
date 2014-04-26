@@ -145,7 +145,7 @@ Path.prototype.isEqual = function(path) {
 Path.prototype.add = function(segment) {
   assertType(PathSegment, segment)
 
-  return new Path(this._segments.concat([segment]))
+  return new Path(this._segments.concat([segment]), this.isRoot)
 }
 
 /**

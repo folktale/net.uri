@@ -120,5 +120,5 @@ Released under the [MIT licence](https://github.com/folktale/net.uri/blob/master
 [es5-shim]: https://github.com/kriskowal/es5-shim
 [docs]: http://folktale.github.io/net.uri
 <!-- [release: https://github.com/folktale/net.uri/releases/download/v$VERSION/net.uri-$VERSION.tar.gz] -->
-[release]: https://github.com/folktale/net.uri/releases/download/v0.1.1/net.uri-0.1.1.tar.gz
+[release]: https://github.com/folktale/net.uri/releases/download/v0.1.3/net.uri-0.1.3.tar.gz
 <!-- [/release] -->

@@ -220,6 +220,7 @@ UserInfo.prototype.isEqual = function(a) {
  * @summary new() → EmptyUserAuth
  */
 exports.EmptyUserInfo = EmptyUserInfo
+EmptyUserInfo.prototype = Object.create(UserInfo.prototype)
 function EmptyUserInfo() { }
 
 EmptyUserInfo.prototype.toString = function() {

@@ -323,8 +323,8 @@ function URI(spec) {
  */
 URI.fromString = function(text) {
   var data = url.parse(text, true)
-  return new URI(versione(data, { pathname: Path.fromString(data.pathname)
-                                , auth:     UserInfo.fromString(data.auth)
+  return new URI(versione(data, { pathname: Path.fromString(data.pathname || '')
+                                , auth:     UserInfo.fromString(data.auth || '')
                                 , query:    new QueryString(data.query) }))
 }
 
